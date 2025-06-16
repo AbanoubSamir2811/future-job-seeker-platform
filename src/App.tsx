@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import RegisterCandidate from "./pages/RegisterCandidate";
+import RegisterEmployer from "./pages/RegisterEmployer";
+import Login from "./pages/Login";
+import CandidateDashboard from "./pages/CandidateDashboard";
+import EmployerDashboard from "./pages/EmployerDashboard";
+import PostJob from "./pages/PostJob";
+import Jobs from "./pages/Jobs";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +24,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/register-candidate" element={<RegisterCandidate />} />
+          <Route path="/register-employer" element={<RegisterEmployer />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/candidate-dashboard" element={<CandidateDashboard />} />
+          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+          <Route path="/post-job" element={<PostJob />} />
+          <Route path="/jobs" element={<Jobs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

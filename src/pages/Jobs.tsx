@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Navbar } from "@/components/Navbar";
-import { Search, MapPin, Clock, DollarSign } from "lucide-react";
+import { Search, MapPin, Clock, DollarSign, Building } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Jobs = () => {
@@ -19,6 +19,7 @@ const Jobs = () => {
       id: 1,
       title: "مطور واجهات أمامية",
       company: "شركة التقنية المتقدمة",
+      companyId: 1,
       location: "الرياض",
       salary: "8,000 - 12,000 ريال",
       type: "دوام كامل",
@@ -32,6 +33,7 @@ const Jobs = () => {
       id: 2,
       title: "مصمم UI/UX",
       company: "مؤسسة الابتكار الرقمي",
+      companyId: 2,
       location: "جدة",
       salary: "6,000 - 10,000 ريال",
       type: "دوام كامل",
@@ -45,6 +47,7 @@ const Jobs = () => {
       id: 3,
       title: "مهندس البرمجيات",
       company: "تقنيات المستقبل",
+      companyId: 3,
       location: "الدمام",
       salary: "10,000 - 16,000 ريال",
       type: "دوام كامل",
@@ -58,6 +61,7 @@ const Jobs = () => {
       id: 4,
       title: "أخصائي التسويق الرقمي",
       company: "وكالة الإبداع التسويقي",
+      companyId: 4,
       location: "الرياض",
       salary: "7,000 - 11,000 ريال",
       type: "دوام كامل",
@@ -161,9 +165,15 @@ const Jobs = () => {
                         <Badge className="bg-blue-100 text-blue-800">مميزة</Badge>
                       )}
                     </div>
-                    <CardDescription className="text-lg font-medium text-gray-700">
-                      {job.company}
-                    </CardDescription>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Building className="w-4 h-4 text-gray-500" />
+                      <Link 
+                        to={`/company/${job.companyId}`}
+                        className="text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                      >
+                        {job.company}
+                      </Link>
+                    </div>
                   </div>
                   <Button asChild>
                     <Link to={`/job/${job.id}`}>عرض التفاصيل</Link>

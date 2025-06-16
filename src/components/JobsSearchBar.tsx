@@ -44,7 +44,7 @@ export const JobsSearchBar = ({
               <SelectValue placeholder="الموقع" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">جميع المواقع</SelectItem>
+              <SelectItem value="all">جميع المواقع</SelectItem>
               <SelectItem value="الرياض">الرياض</SelectItem>
               <SelectItem value="جدة">جدة</SelectItem>
               <SelectItem value="الدمام">الدمام</SelectItem>
@@ -59,7 +59,7 @@ export const JobsSearchBar = ({
               <SelectValue placeholder="المجال" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">جميع المجالات</SelectItem>
+              <SelectItem value="all">جميع المجالات</SelectItem>
               <SelectItem value="tech">التكنولوجيا</SelectItem>
               <SelectItem value="marketing">التسويق</SelectItem>
               <SelectItem value="finance">المالية</SelectItem>

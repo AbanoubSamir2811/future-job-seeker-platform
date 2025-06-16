@@ -84,7 +84,7 @@ export const useJobsData = () => {
     return jobs.filter(job => {
       const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            job.company.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesLocation = !locationFilter || job.location === locationFilter;
+      const matchesLocation = !locationFilter || locationFilter === "all" || job.location === locationFilter;
       return matchesSearch && matchesLocation;
     });
   }, [searchQuery, locationFilter, jobs]);

@@ -76,8 +76,8 @@ const Companies = () => {
   const filteredCompanies = companies.filter(company => {
     const matchesSearch = company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          company.industry.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesLocation = !locationFilter || company.location === locationFilter;
-    const matchesIndustry = !industryFilter || company.industry === industryFilter;
+    const matchesLocation = !locationFilter || locationFilter === "all" || company.location === locationFilter;
+    const matchesIndustry = !industryFilter || industryFilter === "all" || company.industry === industryFilter;
     return matchesSearch && matchesLocation && matchesIndustry;
   });
 
@@ -109,7 +109,7 @@ const Companies = () => {
                   <SelectValue placeholder="الموقع" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع المواقع</SelectItem>
+                  <SelectItem value="all">جميع المواقع</SelectItem>
                   <SelectItem value="الرياض">الرياض</SelectItem>
                   <SelectItem value="جدة">جدة</SelectItem>
                   <SelectItem value="الدمام">الدمام</SelectItem>
@@ -124,7 +124,7 @@ const Companies = () => {
                   <SelectValue placeholder="المجال" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع المجالات</SelectItem>
+                  <SelectItem value="all">جميع المجالات</SelectItem>
                   <SelectItem value="التكنولوجيا">التكنولوجيا</SelectItem>
                   <SelectItem value="التسويق الرقمي">التسويق الرقمي</SelectItem>
                   <SelectItem value="التسويق">التسويق</SelectItem>

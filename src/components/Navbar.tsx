@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Search, User, Settings } from "lucide-react";
+import { Search, User, Settings, Bookmark } from "lucide-react";
 
 export const Navbar = () => {
   return (
@@ -20,6 +20,10 @@ export const Navbar = () => {
             </Link>
             <Link to="/companies" className="text-gray-700 hover:text-blue-600 transition-colors">
               الشركات
+            </Link>
+            <Link to="/saved-jobs" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-2">
+              <Bookmark className="w-4 h-4" />
+              الوظائف المحفوظة
             </Link>
             <Link to="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               عن المنصة

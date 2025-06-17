@@ -1,28 +1,31 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, Users, Calendar, Settings } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Features = () => {
+  const { t } = useLanguage();
+
   const features = [
     {
       icon: Search,
-      title: "بحث ذكي",
-      description: "محرك بحث متطور يساعدك في العثور على الوظائف المناسبة لمهاراتك وخبراتك"
+      title: t('smart_search'),
+      description: t('smart_search_desc')
     },
     {
       icon: Users,
-      title: "شبكة واسعة",
-      description: "اتصل مع آلاف أصحاب العمل والمرشحين من جميع أنحاء العالم العربي"
+      title: t('wide_network'),
+      description: t('wide_network_desc')
     },
     {
       icon: Calendar,
-      title: "إدارة المقابلات",
-      description: "نظام متكامل لجدولة وإدارة المقابلات بين أصحاب العمل والمرشحين"
+      title: t('interview_management'),
+      description: t('interview_management_desc')
     },
     {
       icon: Settings,
-      title: "أدوات متقدمة",
-      description: "مجموعة شاملة من الأدوات لإدارة الملف الشخصي والتقديم على الوظائف"
+      title: t('advanced_tools'),
+      description: t('advanced_tools_desc')
     }
   ];
 
@@ -31,10 +34,10 @@ export const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            لماذا تختار منصتنا؟
+            {t('why_choose_us')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            نوفر لك أفضل الأدوات والخدمات لتحقيق أهدافك المهنية بسهولة وفعالية
+            {t('features_subtitle')}
           </p>
         </div>
         

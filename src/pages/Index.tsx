@@ -1,16 +1,17 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, Users, Calendar, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { Stats } from "@/components/Stats";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t, language } = useLanguage();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50" dir="rtl">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-green-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`}>
       <Navbar />
       
       <main>
@@ -22,17 +23,17 @@ const Index = () => {
         <section className="py-20 bg-gradient-to-r from-blue-600 to-green-600">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-white mb-6">
-              ابدأ رحلتك المهنية اليوم
+              {t('start_career')}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              انضم إلى آلاف الباحثين عن العمل وأصحاب العمل واكتشف الفرص المناسبة لك
+              {t('cta_subtitle')}
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                <Link to="/register-candidate">سجل كباحث عن عمل</Link>
+                <Link to="/register-candidate">{t('register_candidate')}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
-                <Link to="/register-employer">سجل كصاحب عمل</Link>
+                <Link to="/register-employer">{t('register_employer')}</Link>
               </Button>
             </div>
           </div>
@@ -44,38 +45,38 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">منصة التوظيف</h3>
+              <h3 className="text-xl font-bold mb-4">{t('job_platform')}</h3>
               <p className="text-gray-400">
-                أفضل منصة للبحث عن الوظائف والمواهب في العالم العربي
+                {t('hero_subtitle')}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">روابط سريعة</h4>
+              <h4 className="font-semibold mb-4">{t('quick_links')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/jobs" className="hover:text-white">الوظائف</Link></li>
-                <li><Link to="/companies" className="hover:text-white">الشركات</Link></li>
-                <li><Link to="/about" className="hover:text-white">عن المنصة</Link></li>
+                <li><Link to="/jobs" className="hover:text-white">{t('jobs')}</Link></li>
+                <li><Link to="/companies" className="hover:text-white">{t('companies')}</Link></li>
+                <li><Link to="/about" className="hover:text-white">{t('about')}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">للباحثين</h4>
+              <h4 className="font-semibold mb-4">{t('for_job_seekers')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/register-candidate" className="hover:text-white">إنشاء حساب</Link></li>
-                <li><Link to="/resume-tips" className="hover:text-white">نصائح السيرة الذاتية</Link></li>
-                <li><Link to="/career-guide" className="hover:text-white">دليل المهنة</Link></li>
+                <li><Link to="/register-candidate" className="hover:text-white">{t('register')}</Link></li>
+                <li><Link to="/resume-tips" className="hover:text-white">Resume Tips</Link></li>
+                <li><Link to="/career-guide" className="hover:text-white">Career Guide</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">لأصحاب العمل</h4>
+              <h4 className="font-semibold mb-4">{t('for_employers')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/register-employer" className="hover:text-white">إنشاء حساب</Link></li>
-                <li><Link to="/post-job" className="hover:text-white">نشر وظيفة</Link></li>
-                <li><Link to="/pricing" className="hover:text-white">الأسعار</Link></li>
+                <li><Link to="/register-employer" className="hover:text-white">{t('register')}</Link></li>
+                <li><Link to="/post-job" className="hover:text-white">Post Job</Link></li>
+                <li><Link to="/pricing" className="hover:text-white">Pricing</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 منصة التوظيف. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2024 {t('job_platform')}. {t('rights_reserved')}</p>
           </div>
         </div>
       </footer>

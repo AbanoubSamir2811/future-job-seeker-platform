@@ -1,10 +1,14 @@
 
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export const Stats = () => {
+  const { t } = useLanguage();
+
   const stats = [
-    { number: "10,000+", label: "وظيفة متاحة" },
-    { number: "5,000+", label: "شركة مسجلة" },
-    { number: "50,000+", label: "باحث عن عمل" },
-    { number: "95%", label: "معدل الرضا" }
+    { number: "10,000+", label: t('available_jobs') },
+    { number: "5,000+", label: t('registered_companies') },
+    { number: "50,000+", label: t('job_seekers') },
+    { number: "95%", label: t('satisfaction_rate') }
   ];
 
   return (

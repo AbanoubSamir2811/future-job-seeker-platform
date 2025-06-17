@@ -3,11 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Building, Calendar, Users, ArrowRight } from "lucide-react";
+import { MapPin, Clock, DollarSign, Building, Calendar, Users, ArrowRight, Bookmark, BookmarkCheck, Share2, Send } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { useSavedJobs } from "@/hooks/useSavedJobs";
+import { useToast } from "@/hooks/use-toast";
 
 const JobDetail = () => {
   const { id } = useParams();
+  const { saveJob, removeSavedJob, isJobSaved } = useSavedJobs();
+  const { toast } = useToast();
   
   // هذه البيانات يجب أن تأتي من API أو قاعدة بيانات
   // لكن الآن سنستخدم بيانات وهمية
@@ -89,6 +93,47 @@ const JobDetail = () => {
 
   const job = jobs.find(j => j.id === parseInt(id || "0"));
 
+  const handleApplyNow = () => {
+    toast({
+      title: "تم إرسال طلب التقديم",
+      description: `تم إرسال طلبك للتقديم على وظيفة "${job?.title}" بنجاح!`,
+    });
+  };
+
+  const handleSaveJob = () => {
+    if (!job) return;
+    
+    if (isJobSaved(job.id)) {
+      removeSavedJob(job.id);
+      toast({
+        title: "تم إلغاء حفظ الوظيفة",
+        description: `تم إزالة "${job.title}" من الوظائف المحفوظة`,
+      });
+    } else {
+      saveJob(job);
+      toast({
+        title: "تم حفظ الوظيفة",
+        description: `تم حفظ "${job.title}" في قائمة الوظائف المحفوظة`,
+      });
+    }
+  };
+
+  const handleShareJob = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: job?.title,
+        text: `تحقق من هذه الوظيفة: ${job?.title} في ${job?.company}`,
+        url: window.location.href,
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "تم نسخ الرابط",
+        description: "تم نسخ رابط الوظيفة إلى الحافظة",
+      });
+    }
+  };
+
   if (!job) {
     return (
       <div className="min-h-screen bg-gray-50" dir="rtl">
@@ -166,7 +211,6 @@ const JobDetail = () => {
               </CardHeader>
             </Card>
 
-            {/* Job Description */}
             <Card>
               <CardHeader>
                 <CardTitle>وصف الوظيفة</CardTitle>
@@ -176,7 +220,6 @@ const JobDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Requirements */}
             <Card>
               <CardHeader>
                 <CardTitle>المتطلبات</CardTitle>
@@ -193,7 +236,6 @@ const JobDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Responsibilities */}
             <Card>
               <CardHeader>
                 <CardTitle>المسؤوليات</CardTitle>
@@ -210,7 +252,6 @@ const JobDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Benefits */}
             <Card>
               <CardHeader>
                 <CardTitle>المزايا</CardTitle>
@@ -227,7 +268,6 @@ const JobDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Skills */}
             <Card>
               <CardHeader>
                 <CardTitle>المهارات المطلوبة</CardTitle>
@@ -252,13 +292,33 @@ const JobDetail = () => {
                 <CardTitle>التقديم للوظيفة</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Button className="w-full" size="lg">
+                <Button className="w-full" size="lg" onClick={handleApplyNow}>
+                  <Send className="w-4 h-4 ml-2" />
                   تقدم الآن
                 </Button>
-                <Button variant="outline" className="w-full">
-                  حفظ الوظيفة
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={handleSaveJob}
+                >
+                  {isJobSaved(job.id) ? (
+                    <>
+                      <BookmarkCheck className="w-4 h-4 ml-2" />
+                      محفوظة
+                    </>
+                  ) : (
+                    <>
+                      <Bookmark className="w-4 h-4 ml-2" />
+                      حفظ الوظيفة
+                    </>
+                  )}
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={handleShareJob}
+                >
+                  <Share2 className="w-4 h-4 ml-2" />
                   مشاركة الوظيفة
                 </Button>
               </CardContent>
@@ -293,7 +353,6 @@ const JobDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Company Info */}
             <Card>
               <CardHeader>
                 <CardTitle>عن الشركة</CardTitle>

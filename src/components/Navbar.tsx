@@ -25,6 +25,10 @@ export const Navbar = () => {
               <Bookmark className="w-4 h-4" />
               الوظائف المحفوظة
             </Link>
+            <Link to="/profile" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-2">
+              <User className="w-4 h-4" />
+              الملف الشخصي
+            </Link>
             <Link to="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
               عن المنصة
             </Link>

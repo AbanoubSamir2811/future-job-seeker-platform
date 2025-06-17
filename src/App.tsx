@@ -18,6 +18,7 @@ import JobDetail from "./pages/JobDetail";
 import CompanyDetail from "./pages/CompanyDetail";
 import About from "./pages/About";
 import SavedJobs from "./pages/SavedJobs";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/company/:id" element={<CompanyDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/saved-jobs" element={<SavedJobs />} />
+          <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

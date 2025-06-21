@@ -95,7 +95,7 @@ const SavedJobs = () => {
                           </div>
                           <div>
                             <span className="text-gray-500">{t('experience')}:</span>
-                            <p className="font-semibold">{job.experience}</p>
+                            <p className="font-semibold">{job.experience || t('not_specified')}</p>
                           </div>
                           <div>
                             <span className="text-gray-500">{t('post_date')}:</span>
@@ -105,19 +105,27 @@ const SavedJobs = () => {
                       </div>
 
                       <div className="mb-4">
-                        <p className="text-gray-700 line-clamp-2">{job.description}</p>
+                        <p className="text-gray-700 line-clamp-2">{job.description || t('no_description')}</p>
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div className="flex flex-wrap gap-2">
-                          {job.skills.slice(0, 3).map((skill, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {skill}
-                            </Badge>
-                          ))}
-                          {job.skills.length > 3 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{job.skills.length - 3}
+                          {job.skills && job.skills.length > 0 ? (
+                            <>
+                              {job.skills.slice(0, 3).map((skill, index) => (
+                                <Badge key={index} variant="outline" className="text-xs">
+                                  {skill}
+                                </Badge>
+                              ))}
+                              {job.skills.length > 3 && (
+                                <Badge variant="outline" className="text-xs">
+                                  +{job.skills.length - 3}
+                                </Badge>
+                              )}
+                            </>
+                          ) : (
+                            <Badge variant="outline" className="text-xs text-gray-500">
+                              {t('no_skills_listed')}
                             </Badge>
                           )}
                         </div>

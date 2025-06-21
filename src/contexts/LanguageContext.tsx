@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'ar' | 'en';
@@ -208,14 +209,12 @@ const translations = {
     // Register Employer
     'create_company_account': 'إنشاء حساب شركة',
     'enter_company_details': 'أدخل بيانات شركتك لإنشاء حساب جديد والبدء في نشر الوظائف',
-    'company_name': 'اسم الشركة',
     'enter_company_name': 'أدخل اسم الشركة',
     'official_email': 'البريد الإلكتروني الرسمي',
     'work_field': 'مجال العمل',
     'choose_work_field': 'اختر مجال العمل',
     'healthcare': 'الرعاية الصحية',
     'finance_banking': 'المالية والمصرفية',
-    'education': 'التعليم',
     'retail_trade': 'التجارة والتجزئة',
     'manufacturing': 'التصنيع',
     'other': 'أخرى',
@@ -260,18 +259,27 @@ const translations = {
     'company_not_found': 'الشركة غير موجودة',
     'back_to_companies': 'العودة إلى الشركات',
     'founded_year': 'تأسست في',
-    'our_mission': 'رسالتنا',
-    'our_values': 'قيمنا',
     'benefits_perks': 'المزايا والفوائد',
     'available_positions': 'الوظائف المتاحة',
     'no_jobs_available': 'لا توجد وظائف متاحة حالياً في هذه الشركة',
     'contact_info': 'معلومات الاتصال',
     'quick_stats': 'إحصائيات سريعة',
-    'available_jobs_count': 'الوظائف المتاحة',
     'reviews_count': 'عدد التقييمات',
     'founding_year': 'سنة التأسيس',
     'follow_company': 'متابعة الشركة',
-    'share_company': 'مشاركة الشركة'
+    'share_company': 'مشاركة الشركة',
+    
+    // Login & Register
+    'welcome_back': 'مرحباً بعودتك',
+    'enter_email': 'أدخل بريدك الإلكتروني',
+    'enter_password': 'أدخل كلمة المرور',
+    'forgot_password': 'نسيت كلمة المرور؟',
+    'dont_have_account': 'ليس لديك حساب؟',
+    'create_account': 'إنشاء حساب',
+    'first_name': 'الاسم الأول',
+    'last_name': 'اسم العائلة',
+    'agree_terms': 'أوافق على الشروط والأحكام',
+    'already_member': 'عضو بالفعل؟'
   },
   en: {
     // Navbar
@@ -428,14 +436,12 @@ const translations = {
     // Register Employer
     'create_company_account': 'Create Company Account',
     'enter_company_details': 'Enter your company details to create a new account and start posting jobs',
-    'company_name': 'Company Name',
     'enter_company_name': 'Enter company name',
     'official_email': 'Official Email',
     'work_field': 'Work Field',
     'choose_work_field': 'Choose work field',
     'healthcare': 'Healthcare',
     'finance_banking': 'Finance & Banking',
-    'education': 'Education',
     'retail_trade': 'Retail & Trade',
     'manufacturing': 'Manufacturing',
     'other': 'Other',
@@ -480,17 +486,26 @@ const translations = {
     'company_not_found': 'Company Not Found',
     'back_to_companies': 'Back to Companies',
     'founded_year': 'Founded in',
-    'our_mission': 'Our Mission',
-    'our_values': 'Our Values',
     'benefits_perks': 'Benefits & Perks',
     'available_positions': 'Available Positions',
     'no_jobs_available': 'No jobs currently available at this company',
     'contact_info': 'Contact Information',
     'quick_stats': 'Quick Stats',
-    'available_jobs_count': 'Available Jobs',
     'reviews_count': 'Number of Reviews',
     'founding_year': 'Founding Year',
     'follow_company': 'Follow Company',
-    'share_company': 'Share Company'
+    'share_company': 'Share Company',
+    
+    // Login & Register
+    'welcome_back': 'Welcome Back',
+    'enter_email': 'Enter your email',
+    'enter_password': 'Enter your password',
+    'forgot_password': 'Forgot password?',
+    'dont_have_account': 'Don\'t have an account?',
+    'create_account': 'Create Account',
+    'first_name': 'First Name',
+    'last_name': 'Last Name',
+    'agree_terms': 'I agree to the Terms and Conditions',
+    'already_member': 'Already a member?'
   }
 };

@@ -7,27 +7,33 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MapPin, Users, Building, Calendar, Globe, Star, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { JobCard } from "@/components/JobCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CompanyDetail = () => {
   const { id } = useParams();
+  const { t, language } = useLanguage();
   
   // بيانات وهمية للشركات
   const companies = [
     {
       id: 1,
-      name: "شركة التقنية المتقدمة",
+      name: language === 'ar' ? "شركة التقنية المتقدمة" : "Advanced Technology Company",
       logo: "/placeholder.svg",
-      industry: "التكنولوجيا",
-      location: "الرياض",
+      industry: language === 'ar' ? "التكنولوجيا" : "Technology",
+      location: language === 'ar' ? "الرياض" : "Riyadh",
       employees: "100-500",
       rating: 4.5,
       reviews: 45,
       founded: "2015",
       website: "www.techadvanced.com",
-      description: "شركة رائدة في مجال تطوير البرمجيات والحلول التقنية المبتكرة. نحن نعمل على تطوير تطبيقات ومواقع ويب متطورة باستخدام أحدث التقنيات العالمية. فريقنا المتخصص يضم نخبة من المطورين والمصممين ذوي الخبرة الواسعة.",
-      mission: "نسعى لتقديم حلول تقنية مبتكرة تساعد الشركات على النمو والتطور في العصر الرقمي",
-      values: ["الابتكار", "الجودة", "الشفافية", "العمل الجماعي"],
-      benefits: [
+      description: language === 'ar' ? 
+        "شركة رائدة في مجال تطوير البرمجيات والحلول التقنية المبتكرة. نحن نعمل على تطوير تطبيقات ومواقع ويب متطورة باستخدام أحدث التقنيات العالمية. فريقنا المتخصص يضم نخبة من المطورين والمصممين ذوي الخبرة الواسعة." :
+        "A leading company in software development and innovative technical solutions. We develop advanced applications and websites using the latest global technologies. Our specialized team includes elite developers and designers with extensive experience.",
+      mission: language === 'ar' ? 
+        "نسعى لتقديم حلول تقنية مبتكرة تساعد الشركات على النمو والتطور في العصر الرقمي" :
+        "We strive to provide innovative technical solutions that help companies grow and develop in the digital age",
+      values: language === 'ar' ? ["الابتكار", "الجودة", "الشفافية", "العمل الجماعي"] : ["Innovation", "Quality", "Transparency", "Teamwork"],
+      benefits: language === 'ar' ? [
         "راتب تنافسي ومكافآت الأداء",
         "تأمين طبي شامل للموظف والعائلة",
         "إجازة سنوية 30 يوم",
@@ -36,23 +42,36 @@ const CompanyDetail = () => {
         "بيئة عمل مرنة وإمكانية العمل عن بُعد",
         "صالة رياضية مجانية",
         "وجبات مجانية"
+      ] : [
+        "Competitive salary and performance bonuses",
+        "Comprehensive health insurance for employee and family",
+        "30 days annual leave",
+        "Transportation and housing allowance",
+        "Training and professional development programs",
+        "Flexible work environment and remote work options",
+        "Free gym",
+        "Free meals"
       ]
     },
     {
       id: 2,
-      name: "مؤسسة الابتكار الرقمي",
+      name: language === 'ar' ? "مؤسسة الابتكار الرقمي" : "Digital Innovation Institute",
       logo: "/placeholder.svg",
-      industry: "التسويق الرقمي",
-      location: "جدة",
+      industry: language === 'ar' ? "التسويق الرقمي" : "Digital Marketing",
+      location: language === 'ar' ? "جدة" : "Jeddah",
       employees: "50-100",
       rating: 4.2,
       reviews: 28,
       founded: "2018",
       website: "www.digitalinnovation.com",
-      description: "متخصصون في الحلول التسويقية الرقمية والتجارة الإلكترونية. نساعد الشركات على بناء حضورها الرقمي وزيادة مبيعاتها من خلال استراتيجيات تسويقية مبتكرة وحملات إعلانية فعالة.",
-      mission: "تمكين الشركات من تحقيق النجاح في العالم الرقمي",
-      values: ["الإبداع", "النتائج", "التميز", "الاحترافية"],
-      benefits: [
+      description: language === 'ar' ? 
+        "متخصصون في الحلول التسويقية الرقمية والتجارة الإلكترونية. نساعد الشركات على بناء حضورها الرقمي وزيادة مبيعاتها من خلال استراتيجيات تسويقية مبتكرة وحملات إعلانية فعالة." :
+        "Specialists in digital marketing solutions and e-commerce. We help companies build their digital presence and increase sales through innovative marketing strategies and effective advertising campaigns.",
+      mission: language === 'ar' ? 
+        "تمكين الشركات من تحقيق النجاح في العالم الرقمي" :
+        "Empowering companies to achieve success in the digital world",
+      values: language === 'ar' ? ["الإبداع", "النتائج", "التميز", "الاحترافية"] : ["Creativity", "Results", "Excellence", "Professionalism"],
+      benefits: language === 'ar' ? [
         "راتب أساسي مع عمولات مجزية",
         "تأمين صحي شامل",
         "إجازات مرنة",
@@ -60,6 +79,14 @@ const CompanyDetail = () => {
         "دورات تدريبية متخصصة",
         "بيئة عمل إبداعية",
         "فرص ترقية سريعة"
+      ] : [
+        "Base salary with attractive commissions",
+        "Comprehensive health insurance",
+        "Flexible leave",
+        "Additional allowances",
+        "Specialized training courses",
+        "Creative work environment",
+        "Fast promotion opportunities"
       ]
     }
   ];
@@ -68,30 +95,34 @@ const CompanyDetail = () => {
   const companyJobs = [
     {
       id: 1,
-      title: "مطور واجهات أمامية",
-      company: "شركة التقنية المتقدمة",
+      title: language === 'ar' ? "مطور واجهات أمامية" : "Frontend Developer",
+      company: language === 'ar' ? "شركة التقنية المتقدمة" : "Advanced Technology Company",
       companyId: 1,
-      location: "الرياض",
-      salary: "8,000 - 12,000 ريال",
-      type: "دوام كامل",
-      experience: "2-5 سنوات",
-      posted: "منذ يومين",
+      location: language === 'ar' ? "الرياض" : "Riyadh",
+      salary: language === 'ar' ? "8,000 - 12,000 ريال" : "8,000 - 12,000 SAR",
+      type: language === 'ar' ? "دوام كامل" : "Full Time",
+      experience: language === 'ar' ? "2-5 سنوات" : "2-5 years",
+      posted: language === 'ar' ? "منذ يومين" : "2 days ago",
       featured: true,
-      description: "نبحث عن مطور واجهات أمامية محترف للانضمام إلى فريقنا التقني المتميز.",
+      description: language === 'ar' ? 
+        "نبحث عن مطور واجهات أمامية محترف للانضمام إلى فريقنا التقني المتميز." :
+        "We are looking for a professional frontend developer to join our outstanding technical team.",
       skills: ["React", "JavaScript", "CSS", "HTML"]
     },
     {
       id: 2,
-      title: "مصمم UI/UX",
-      company: "مؤسسة الابتكار الرقمي",
+      title: language === 'ar' ? "مصمم UI/UX" : "UI/UX Designer",
+      company: language === 'ar' ? "مؤسسة الابتكار الرقمي" : "Digital Innovation Institute",
       companyId: 2,
-      location: "جدة",
-      salary: "6,000 - 10,000 ريال",
-      type: "دوام كامل",
-      experience: "1-3 سنوات",
-      posted: "منذ 3 أيام",
+      location: language === 'ar' ? "جدة" : "Jeddah",
+      salary: language === 'ar' ? "6,000 - 10,000 ريال" : "6,000 - 10,000 SAR",
+      type: language === 'ar' ? "دوام كامل" : "Full Time",
+      experience: language === 'ar' ? "1-3 سنوات" : "1-3 years",
+      posted: language === 'ar' ? "منذ 3 أيام" : "3 days ago",
       featured: false,
-      description: "فرصة رائعة للمصممين المبدعين للعمل على مشاريع مثيرة ومتنوعة.",
+      description: language === 'ar' ? 
+        "فرصة رائعة للمصممين المبدعين للعمل على مشاريع مثيرة ومتنوعة." :
+        "A great opportunity for creative designers to work on exciting and diverse projects.",
       skills: ["Figma", "Adobe XD", "Photoshop", "Illustrator"]
     }
   ];
@@ -101,13 +132,13 @@ const CompanyDetail = () => {
 
   if (!company) {
     return (
-      <div className="min-h-screen bg-gray-50" dir="rtl">
+      <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
         <Navbar />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">الشركة غير موجودة</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('company_not_found')}</h1>
             <Link to="/companies">
-              <Button>العودة إلى الشركات</Button>
+              <Button>{t('back_to_companies')}</Button>
             </Link>
           </div>
         </div>
@@ -116,7 +147,7 @@ const CompanyDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
@@ -125,7 +156,7 @@ const CompanyDetail = () => {
           <Link to="/companies">
             <Button variant="outline" className="flex items-center gap-2">
               <ArrowRight className="w-4 h-4" />
-              العودة إلى الشركات
+              {t('back_to_companies')}
             </Button>
           </Link>
         </div>
@@ -150,21 +181,21 @@ const CompanyDetail = () => {
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 text-yellow-400 fill-current" />
                         <span className="font-medium">{company.rating}</span>
-                        <span className="text-gray-500">({company.reviews} تقييم)</span>
+                        <span className="text-gray-500">({company.reviews} {language === 'ar' ? 'تقييم' : 'reviews'})</span>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-600">
                       <div className="flex items-center">
-                        <MapPin className="w-4 h-4 ml-1" />
+                        <MapPin className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                         {company.location}
                       </div>
                       <div className="flex items-center">
-                        <Users className="w-4 h-4 ml-1" />
-                        {company.employees} موظف
+                        <Users className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
+                        {company.employees} {t('employees')}
                       </div>
                       <div className="flex items-center">
-                        <Calendar className="w-4 h-4 ml-1" />
-                        تأسست في {company.founded}
+                        <Calendar className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
+                        {language === 'ar' ? `تأسست في ${company.founded}` : `Founded in ${company.founded}`}
                       </div>
                     </div>
                   </div>
@@ -175,18 +206,18 @@ const CompanyDetail = () => {
             {/* About Company */}
             <Card>
               <CardHeader>
-                <CardTitle>عن الشركة</CardTitle>
+                <CardTitle>{t('about_company')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700 leading-relaxed mb-6">{company.description}</p>
                 
                 <div className="mb-6">
-                  <h4 className="font-semibold text-lg mb-3">رسالتنا</h4>
+                  <h4 className="font-semibold text-lg mb-3">{t('our_mission')}</h4>
                   <p className="text-gray-700">{company.mission}</p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">قيمنا</h4>
+                  <h4 className="font-semibold text-lg mb-3">{t('our_values')}</h4>
                   <div className="flex flex-wrap gap-2">
                     {company.values.map((value, index) => (
                       <Badge key={index} variant="outline">
@@ -201,7 +232,7 @@ const CompanyDetail = () => {
             {/* Benefits */}
             <Card>
               <CardHeader>
-                <CardTitle>المزايا والفوائد</CardTitle>
+                <CardTitle>{t('benefits_perks')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
@@ -218,7 +249,7 @@ const CompanyDetail = () => {
             {/* Company Jobs */}
             <Card>
               <CardHeader>
-                <CardTitle>الوظائف المتاحة ({jobs.length})</CardTitle>
+                <CardTitle>{t('available_positions')} ({jobs.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {jobs.length > 0 ? (
@@ -229,7 +260,7 @@ const CompanyDetail = () => {
                   </div>
                 ) : (
                   <p className="text-gray-500 text-center py-8">
-                    لا توجد وظائف متاحة حالياً في هذه الشركة
+                    {t('no_jobs_available')}
                   </p>
                 )}
               </CardContent>
@@ -241,7 +272,7 @@ const CompanyDetail = () => {
             {/* Contact Info */}
             <Card>
               <CardHeader>
-                <CardTitle>معلومات الاتصال</CardTitle>
+                <CardTitle>{t('contact_info')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
@@ -261,7 +292,7 @@ const CompanyDetail = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4 text-gray-500" />
-                  <span>{company.employees} موظف</span>
+                  <span>{company.employees} {t('employees')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Building className="w-4 h-4 text-gray-500" />
@@ -273,26 +304,26 @@ const CompanyDetail = () => {
             {/* Quick Stats */}
             <Card>
               <CardHeader>
-                <CardTitle>إحصائيات سريعة</CardTitle>
+                <CardTitle>{t('quick_stats')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">الوظائف المتاحة:</span>
+                  <span className="text-gray-600">{t('available_jobs_count')}:</span>
                   <span className="font-medium">{jobs.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">التقييم:</span>
+                  <span className="text-gray-600">{t('rating')}:</span>
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="font-medium">{company.rating}</span>
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">عدد التقييمات:</span>
+                  <span className="text-gray-600">{t('reviews_count')}:</span>
                   <span className="font-medium">{company.reviews}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">سنة التأسيس:</span>
+                  <span className="text-gray-600">{t('founding_year')}:</span>
                   <span className="font-medium">{company.founded}</span>
                 </div>
               </CardContent>
@@ -302,10 +333,10 @@ const CompanyDetail = () => {
             <Card>
               <CardContent className="pt-6">
                 <Button className="w-full mb-3">
-                  متابعة الشركة
+                  {t('follow_company')}
                 </Button>
                 <Button variant="outline" className="w-full">
-                  مشاركة الشركة
+                  {t('share_company')}
                 </Button>
               </CardContent>
             </Card>

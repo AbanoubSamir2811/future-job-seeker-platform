@@ -7,29 +7,33 @@ import { MapPin, Clock, DollarSign, Building, Calendar, Users, ArrowRight, Bookm
 import { Navbar } from "@/components/Navbar";
 import { useSavedJobs } from "@/hooks/useSavedJobs";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const JobDetail = () => {
   const { id } = useParams();
   const { saveJob, removeSavedJob, isJobSaved } = useSavedJobs();
   const { toast } = useToast();
+  const { t, language } = useLanguage();
   
   // هذه البيانات يجب أن تأتي من API أو قاعدة بيانات
   // لكن الآن سنستخدم بيانات وهمية
   const jobs = [
     {
       id: 1,
-      title: "مطور واجهات أمامية",
-      company: "شركة التقنية المتقدمة",
+      title: language === 'ar' ? "مطور واجهات أمامية" : "Frontend Developer",
+      company: language === 'ar' ? "شركة التقنية المتقدمة" : "Advanced Technology Company",
       companyId: 1,
-      location: "الرياض",
-      salary: "8,000 - 12,000 ريال",
-      type: "دوام كامل",
-      experience: "2-5 سنوات",
-      posted: "منذ يومين",
+      location: language === 'ar' ? "الرياض" : "Riyadh",
+      salary: language === 'ar' ? "8,000 - 12,000 ريال" : "8,000 - 12,000 SAR",
+      type: language === 'ar' ? "دوام كامل" : "Full Time",
+      experience: language === 'ar' ? "2-5 سنوات" : "2-5 years",
+      posted: language === 'ar' ? "منذ يومين" : "2 days ago",
       featured: true,
-      description: "نبحث عن مطور واجهات أمامية محترف للانضمام إلى فريقنا التقني المتميز. ستكون مسؤولاً عن تطوير واجهات المستخدم التفاعلية والمتجاوبة باستخدام أحدث التقنيات. نحن نقدم بيئة عمل محفزة وفرص نمو مهني ممتازة.",
+      description: language === 'ar' ? 
+        "نبحث عن مطور واجهات أمامية محترف للانضمام إلى فريقنا التقني المتميز. ستكون مسؤولاً عن تطوير واجهات المستخدم التفاعلية والمتجاوبة باستخدام أحدث التقنيات. نحن نقدم بيئة عمل محفزة وفرص نمو مهني ممتازة." :
+        "We are looking for a professional frontend developer to join our outstanding technical team. You will be responsible for developing interactive and responsive user interfaces using the latest technologies. We offer a stimulating work environment and excellent career growth opportunities.",
       skills: ["React", "JavaScript", "CSS", "HTML"],
-      requirements: [
+      requirements: language === 'ar' ? [
         "خبرة لا تقل عن سنتين في تطوير الواجهات الأمامية",
         "إتقان React.js و JavaScript الحديث",
         "خبرة في HTML5 و CSS3",
@@ -37,8 +41,16 @@ const JobDetail = () => {
         "فهم مبادئ التصميم المتجاوب",
         "القدرة على العمل ضمن فريق",
         "إجادة اللغة الإنجليزية"
+      ] : [
+        "At least 2 years of experience in frontend development",
+        "Proficiency in React.js and modern JavaScript",
+        "Experience with HTML5 and CSS3",
+        "Knowledge of build tools like Webpack or Vite",
+        "Understanding of responsive design principles",
+        "Ability to work in a team",
+        "Proficiency in English"
       ],
-      responsibilities: [
+      responsibilities: language === 'ar' ? [
         "تطوير واجهات المستخدم التفاعلية",
         "تحويل التصاميم إلى كود قابل للتشغيل",
         "ضمان التوافق مع المتصفحات المختلفة",
@@ -46,8 +58,16 @@ const JobDetail = () => {
         "العمل مع فريق التصميم والخلفية",
         "كتابة كود نظيف وقابل للصيانة",
         "المشاركة في مراجعة الكود"
+      ] : [
+        "Develop interactive user interfaces",
+        "Convert designs into executable code",
+        "Ensure cross-browser compatibility",
+        "Optimize application performance",
+        "Work with design and backend teams",
+        "Write clean and maintainable code",
+        "Participate in code reviews"
       ],
-      benefits: [
+      benefits: language === 'ar' ? [
         "راتب تنافسي",
         "تأمين طبي شامل",
         "إجازة سنوية 30 يوم",
@@ -55,6 +75,14 @@ const JobDetail = () => {
         "فرص تدريب وتطوير مهني",
         "بيئة عمل مرنة",
         "مكافآت الأداء"
+      ] : [
+        "Competitive salary",
+        "Comprehensive health insurance",
+        "30 days annual leave",
+        "Transportation allowance",
+        "Training and professional development opportunities",
+        "Flexible work environment",
+        "Performance bonuses"
       ]
     },
     {
@@ -95,8 +123,10 @@ const JobDetail = () => {
 
   const handleApplyNow = () => {
     toast({
-      title: "تم إرسال طلب التقديم",
-      description: `تم إرسال طلبك للتقديم على وظيفة "${job?.title}" بنجاح!`,
+      title: language === 'ar' ? "تم إرسال طلب التقديم" : "Application Sent",
+      description: language === 'ar' ? 
+        `تم إرسال طلبك للتقديم على وظيفة "${job?.title}" بنجاح!` :
+        `Your application for "${job?.title}" has been sent successfully!`,
     });
   };
 
@@ -106,14 +136,18 @@ const JobDetail = () => {
     if (isJobSaved(job.id)) {
       removeSavedJob(job.id);
       toast({
-        title: "تم إلغاء حفظ الوظيفة",
-        description: `تم إزالة "${job.title}" من الوظائف المحفوظة`,
+        title: language === 'ar' ? "تم إلغاء حفظ الوظيفة" : "Job Unsaved",
+        description: language === 'ar' ? 
+          `تم إزالة "${job.title}" من الوظائف المحفوظة` :
+          `"${job.title}" has been removed from saved jobs`,
       });
     } else {
       saveJob(job);
       toast({
-        title: "تم حفظ الوظيفة",
-        description: `تم حفظ "${job.title}" في قائمة الوظائف المحفوظة`,
+        title: language === 'ar' ? "تم حفظ الوظيفة" : "Job Saved",
+        description: language === 'ar' ? 
+          `تم حفظ "${job.title}" في قائمة الوظائف المحفوظة` :
+          `"${job.title}" has been saved to your saved jobs`,
       });
     }
   };
@@ -122,27 +156,29 @@ const JobDetail = () => {
     if (navigator.share) {
       navigator.share({
         title: job?.title,
-        text: `تحقق من هذه الوظيفة: ${job?.title} في ${job?.company}`,
+        text: language === 'ar' ? 
+          `تحقق من هذه الوظيفة: ${job?.title} في ${job?.company}` :
+          `Check out this job: ${job?.title} at ${job?.company}`,
         url: window.location.href,
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
       toast({
-        title: "تم نسخ الرابط",
-        description: "تم نسخ رابط الوظيفة إلى الحافظة",
+        title: language === 'ar' ? "تم نسخ الرابط" : "Link Copied",
+        description: language === 'ar' ? "تم نسخ رابط الوظيفة إلى الحافظة" : "Job link has been copied to clipboard",
       });
     }
   };
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-gray-50" dir="rtl">
+      <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
         <Navbar />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">الوظيفة غير موجودة</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('job_not_found')}</h1>
             <Link to="/jobs">
-              <Button>العودة إلى الوظائف</Button>
+              <Button>{t('back_to_jobs')}</Button>
             </Link>
           </div>
         </div>
@@ -151,7 +187,7 @@ const JobDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
@@ -160,7 +196,7 @@ const JobDetail = () => {
           <Link to="/jobs">
             <Button variant="outline" className="flex items-center gap-2">
               <ArrowRight className="w-4 h-4" />
-              العودة إلى الوظائف
+              {t('back_to_jobs')}
             </Button>
           </Link>
         </div>
@@ -176,7 +212,7 @@ const JobDetail = () => {
                     <div className="flex items-center gap-2 mb-2">
                       <CardTitle className="text-2xl">{job.title}</CardTitle>
                       {job.featured && (
-                        <Badge className="bg-blue-100 text-blue-800">مميزة</Badge>
+                        <Badge className="bg-blue-100 text-blue-800">{t('featured')}</Badge>
                       )}
                     </div>
                     <div className="flex items-center gap-2 mb-4">
@@ -190,19 +226,19 @@ const JobDetail = () => {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="flex items-center text-gray-600">
-                        <MapPin className="w-4 h-4 ml-1" />
+                        <MapPin className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                         {job.location}
                       </div>
                       <div className="flex items-center text-gray-600">
-                        <DollarSign className="w-4 h-4 ml-1" />
+                        <DollarSign className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                         {job.salary}
                       </div>
                       <div className="flex items-center text-gray-600">
-                        <Clock className="w-4 h-4 ml-1" />
+                        <Clock className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                         {job.type}
                       </div>
                       <div className="flex items-center text-gray-600">
-                        <Calendar className="w-4 h-4 ml-1" />
+                        <Calendar className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                         {job.posted}
                       </div>
                     </div>
@@ -213,7 +249,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>وصف الوظيفة</CardTitle>
+                <CardTitle>{t('job_description')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700 leading-relaxed">{job.description}</p>
@@ -222,7 +258,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>المتطلبات</CardTitle>
+                <CardTitle>{t('requirements')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -238,7 +274,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>المسؤوليات</CardTitle>
+                <CardTitle>{t('responsibilities')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -254,7 +290,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>المزايا</CardTitle>
+                <CardTitle>{t('benefits')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -270,7 +306,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>المهارات المطلوبة</CardTitle>
+                <CardTitle>{t('required_skills')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -289,12 +325,12 @@ const JobDetail = () => {
             {/* Apply Card */}
             <Card>
               <CardHeader>
-                <CardTitle>التقديم للوظيفة</CardTitle>
+                <CardTitle>{t('apply_for_job')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button className="w-full" size="lg" onClick={handleApplyNow}>
-                  <Send className="w-4 h-4 ml-2" />
-                  تقدم الآن
+                  <Send className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                  {t('apply_now')}
                 </Button>
                 <Button 
                   variant="outline" 
@@ -303,13 +339,13 @@ const JobDetail = () => {
                 >
                   {isJobSaved(job.id) ? (
                     <>
-                      <BookmarkCheck className="w-4 h-4 ml-2" />
-                      محفوظة
+                      <BookmarkCheck className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                      {t('saved')}
                     </>
                   ) : (
                     <>
-                      <Bookmark className="w-4 h-4 ml-2" />
-                      حفظ الوظيفة
+                      <Bookmark className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                      {t('save_job')}
                     </>
                   )}
                 </Button>
@@ -318,8 +354,8 @@ const JobDetail = () => {
                   className="w-full"
                   onClick={handleShareJob}
                 >
-                  <Share2 className="w-4 h-4 ml-2" />
-                  مشاركة الوظيفة
+                  <Share2 className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                  {t('share_job')}
                 </Button>
               </CardContent>
             </Card>
@@ -327,27 +363,27 @@ const JobDetail = () => {
             {/* Job Info */}
             <Card>
               <CardHeader>
-                <CardTitle>معلومات الوظيفة</CardTitle>
+                <CardTitle>{t('job_info')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">نوع العمل:</span>
+                  <span className="text-gray-600">{t('work_type_label')}:</span>
                   <span className="font-medium">{job.type}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">الخبرة المطلوبة:</span>
+                  <span className="text-gray-600">{t('required_experience')}:</span>
                   <span className="font-medium">{job.experience}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">الموقع:</span>
+                  <span className="text-gray-600">{t('location')}:</span>
                   <span className="font-medium">{job.location}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">الراتب:</span>
+                  <span className="text-gray-600">{t('salary')}:</span>
                   <span className="font-medium">{job.salary}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">تاريخ النشر:</span>
+                  <span className="text-gray-600">{t('post_date')}:</span>
                   <span className="font-medium">{job.posted}</span>
                 </div>
               </CardContent>
@@ -355,7 +391,7 @@ const JobDetail = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>عن الشركة</CardTitle>
+                <CardTitle>{t('about_company')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-3 mb-4">
@@ -364,12 +400,12 @@ const JobDetail = () => {
                   </div>
                   <div>
                     <h4 className="font-medium">{job.company}</h4>
-                    <p className="text-sm text-gray-600">شركة تقنية</p>
+                    <p className="text-sm text-gray-600">{t('tech_company')}</p>
                   </div>
                 </div>
                 <Button variant="outline" className="w-full" asChild>
                   <Link to={`/company/${job.companyId}`}>
-                    عرض ملف الشركة
+                    {t('view_company_profile')}
                   </Link>
                 </Button>
               </CardContent>

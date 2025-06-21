@@ -9,9 +9,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { toast } from "sonner";
 import { Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const RegisterEmployer = () => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     companyName: "",
     email: "",
@@ -41,24 +43,24 @@ const RegisterEmployer = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      toast.error("كلمات المرور غير متطابقة");
+      toast.error(language === 'ar' ? "كلمات المرور غير متطابقة" : "Passwords do not match");
       return;
     }
 
     if (formData.password.length < 8) {
-      toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل");
+      toast.error(language === 'ar' ? "كلمة المرور يجب أن تكون 8 أحرف على الأقل" : "Password must be at least 8 characters");
       return;
     }
 
     // Simulate registration
-    toast.success("تم إنشاء حساب الشركة بنجاح! تحقق من بريدك الإلكتروني للتفعيل");
+    toast.success(language === 'ar' ? "تم إنشاء حساب الشركة بنجاح! تحقق من بريدك الإلكتروني للتفعيل" : "Company account created successfully! Check your email for activation");
     setTimeout(() => {
       navigate("/employer-dashboard");
     }, 2000);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50" dir="rtl">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-green-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="flex items-center justify-center py-12 px-4">
@@ -67,16 +69,16 @@ const RegisterEmployer = () => {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Users className="w-8 h-8 text-green-600" />
             </div>
-            <CardTitle className="text-2xl">إنشاء حساب شركة</CardTitle>
+            <CardTitle className="text-2xl">{t('create_company_account')}</CardTitle>
             <CardDescription>
-              أدخل بيانات شركتك لإنشاء حساب جديد والبدء في نشر الوظائف
+              {t('enter_company_details')}
             </CardDescription>
           </CardHeader>
           
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="companyName">اسم الشركة *</Label>
+                <Label htmlFor="companyName">{t('company_name')} *</Label>
                 <Input
                   id="companyName"
                   name="companyName"
@@ -84,12 +86,12 @@ const RegisterEmployer = () => {
                   required
                   value={formData.companyName}
                   onChange={handleInputChange}
-                  placeholder="أدخل اسم الشركة"
+                  placeholder={t('enter_company_name')}
                 />
               </div>
               
               <div>
-                <Label htmlFor="email">البريد الإلكتروني الرسمي *</Label>
+                <Label htmlFor="email">{t('official_email')} *</Label>
                 <Input
                   id="email"
                   name="email"
@@ -102,25 +104,25 @@ const RegisterEmployer = () => {
               </div>
               
               <div>
-                <Label htmlFor="industry">مجال العمل *</Label>
+                <Label htmlFor="industry">{t('work_field')} *</Label>
                 <Select onValueChange={(value) => handleSelectChange("industry", value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="اختر مجال العمل" />
+                    <SelectValue placeholder={t('choose_work_field')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="tech">التكنولوجيا</SelectItem>
-                    <SelectItem value="healthcare">الرعاية الصحية</SelectItem>
-                    <SelectItem value="finance">المالية والمصرفية</SelectItem>
-                    <SelectItem value="education">التعليم</SelectItem>
-                    <SelectItem value="retail">التجارة والتجزئة</SelectItem>
-                    <SelectItem value="manufacturing">التصنيع</SelectItem>
-                    <SelectItem value="other">أخرى</SelectItem>
+                    <SelectItem value="tech">{t('technology')}</SelectItem>
+                    <SelectItem value="healthcare">{t('healthcare')}</SelectItem>
+                    <SelectItem value="finance">{t('finance_banking')}</SelectItem>
+                    <SelectItem value="education">{t('education')}</SelectItem>
+                    <SelectItem value="retail">{t('retail_trade')}</SelectItem>
+                    <SelectItem value="manufacturing">{t('manufacturing')}</SelectItem>
+                    <SelectItem value="other">{t('other')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               <div>
-                <Label htmlFor="website">موقع الشركة</Label>
+                <Label htmlFor="website">{t('company_website')}</Label>
                 <Input
                   id="website"
                   name="website"
@@ -132,7 +134,7 @@ const RegisterEmployer = () => {
               </div>
               
               <div>
-                <Label htmlFor="phone">رقم هاتف الشركة</Label>
+                <Label htmlFor="phone">{t('company_phone')}</Label>
                 <Input
                   id="phone"
                   name="phone"
@@ -144,7 +146,7 @@ const RegisterEmployer = () => {
               </div>
               
               <div>
-                <Label htmlFor="password">كلمة المرور *</Label>
+                <Label htmlFor="password">{t('password')} *</Label>
                 <Input
                   id="password"
                   name="password"
@@ -152,12 +154,12 @@ const RegisterEmployer = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  placeholder="8 أحرف على الأقل"
+                  placeholder={t('min_8_chars')}
                 />
               </div>
               
               <div>
-                <Label htmlFor="confirmPassword">تأكيد كلمة المرور *</Label>
+                <Label htmlFor="confirmPassword">{t('confirm_password')} *</Label>
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
@@ -165,39 +167,39 @@ const RegisterEmployer = () => {
                   required
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  placeholder="أعد كتابة كلمة المرور"
+                  placeholder={t('reenter_password')}
                 />
               </div>
               
               <div>
-                <Label htmlFor="plan">باقة الاستخدام</Label>
+                <Label htmlFor="plan">{t('usage_plan')}</Label>
                 <Select onValueChange={(value) => handleSelectChange("plan", value)} defaultValue="free">
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="free">مجاني (محدود)</SelectItem>
-                    <SelectItem value="basic">أساسي - 99 ريال/شهر</SelectItem>
-                    <SelectItem value="premium">مميز - 199 ريال/شهر</SelectItem>
+                    <SelectItem value="free">{t('free_limited')}</SelectItem>
+                    <SelectItem value="basic">{t('basic_99')}</SelectItem>
+                    <SelectItem value="premium">{t('premium_199')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               <Button type="submit" className="w-full">
-                إنشاء حساب الشركة
+                {t('create_company_account_btn')}
               </Button>
               
               <div className="text-center text-sm text-gray-600">
-                لديك حساب بالفعل؟{" "}
+                {t('already_have_account')}{" "}
                 <Link to="/login" className="text-blue-600 hover:underline">
-                  تسجيل الدخول
+                  {t('login')}
                 </Link>
               </div>
               
               <div className="text-center text-sm text-gray-600">
-                تريد إنشاء حساب شخصي؟{" "}
+                {t('want_personal_account')}{" "}
                 <Link to="/register-candidate" className="text-green-600 hover:underline">
-                  سجل كباحث عن عمل
+                  {t('register_as_candidate')}
                 </Link>
               </div>
             </form>

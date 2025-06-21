@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'ar' | 'en';
@@ -163,7 +162,48 @@ const translations = {
     'no_saved_jobs': 'لا توجد وظائف محفوظة',
     'no_saved_jobs_desc': 'لم تقم بحفظ أي وظائف بعد. ابدأ بالبحث عن الوظائف وحفظ المفضلة لديك.',
     'browse_jobs': 'تصفح الوظائف',
-    'unsave_job': 'إلغاء الحفظ'
+    'unsave_job': 'إلغاء الحفظ',
+    
+    // About Page
+    'about_platform': 'عن منصة التوظيف',
+    'our_mission': 'رسالتنا',
+    'mission_text': 'نؤمن بأن كل شخص يستحق فرصة عمل تتناسب مع مهاراته وطموحاته. لذلك نسعى لتوفير منصة شاملة تجمع بين الباحثين عن العمل وأصحاب العمل في بيئة آمنة وموثوقة.',
+    'mission_text2': 'هدفنا هو تسهيل عملية البحث عن العمل والتوظيف من خلال استخدام أحدث التقنيات وأفضل الممارسات في مجال الموارد البشرية.',
+    'our_goal': 'هدفنا',
+    'goal_text': 'أن نصبح المنصة الرائدة للتوظيف في المنطقة العربية، ونساهم في تطوير سوق العمل وزيادة فرص التوظيف للجميع.',
+    'our_values': 'قيمنا',
+    'transparency': 'الشفافية',
+    'transparency_desc': 'نؤمن بالشفافية الكاملة في جميع عملياتنا ونوفر معلومات واضحة ودقيقة لجميع المستخدمين.',
+    'quality': 'الجودة',
+    'quality_desc': 'نسعى لتقديم أعلى مستويات الجودة في خدماتنا ونعمل باستمرار على تطوير وتحسين منصتنا.',
+    'innovation': 'الابتكار',
+    'innovation_desc': 'نستخدم أحدث التقنيات والحلول المبتكرة لتوفير تجربة استخدام مميزة وفعالة.',
+    'our_achievements': 'إنجازاتنا',
+    'job_seekers_count': 'باحث عن عمل',
+    'available_jobs_count': 'وظيفة متاحة',
+    'partner_companies': 'شركة شريكة',
+    'user_satisfaction': 'نسبة رضا المستخدمين',
+    'join_us_today': 'انضم إلينا اليوم',
+    'join_us_desc': 'ابدأ رحلتك المهنية معنا واكتشف الفرص اللامحدودة في سوق العمل',
+    'register_job_seeker': 'سجل كباحث عن عمل',
+    'register_employer_btn': 'سجل كصاحب عمل',
+    'best_platform': 'أفضل منصة للبحث عن الوظائف والمواهب في العالم العربي',
+    
+    // Companies
+    'browse_companies': 'تصفح الشركات',
+    'search_company_field': 'ابحث عن شركة أو مجال...',
+    'all_locations_filter': 'جميع المواقع',
+    'all_fields_filter': 'جميع المجالات',
+    'digital_marketing': 'التسويق الرقمي',
+    'found_companies': 'تم العثور على {count} شركة',
+    'rating': 'التقييم',
+    'company_size': 'حجم الشركة',
+    'company_name': 'اسم الشركة',
+    'employees': 'موظف',
+    'founded_in': 'تأسست في',
+    'available_jobs_at': 'وظيفة متاحة',
+    'view_company': 'عرض الشركة',
+    'load_more_companies': 'تحميل المزيد من الشركات'
   },
   en: {
     // Navbar
@@ -274,6 +314,47 @@ const translations = {
     'no_saved_jobs': 'No Saved Jobs',
     'no_saved_jobs_desc': 'You haven\'t saved any jobs yet. Start browsing jobs and save your favorites.',
     'browse_jobs': 'Browse Jobs',
-    'unsave_job': 'Unsave Job'
+    'unsave_job': 'Unsave Job',
+    
+    // About Page
+    'about_platform': 'About Job Platform',
+    'our_mission': 'Our Mission',
+    'mission_text': 'We believe that everyone deserves a job opportunity that matches their skills and aspirations. Therefore, we strive to provide a comprehensive platform that brings together job seekers and employers in a safe and reliable environment.',
+    'mission_text2': 'Our goal is to facilitate the job search and recruitment process by using the latest technologies and best practices in human resources.',
+    'our_goal': 'Our Goal',
+    'goal_text': 'To become the leading recruitment platform in the Arab region, and contribute to developing the labor market and increasing employment opportunities for everyone.',
+    'our_values': 'Our Values',
+    'transparency': 'Transparency',
+    'transparency_desc': 'We believe in complete transparency in all our operations and provide clear and accurate information to all users.',
+    'quality': 'Quality',
+    'quality_desc': 'We strive to provide the highest levels of quality in our services and continuously work to develop and improve our platform.',
+    'innovation': 'Innovation',
+    'innovation_desc': 'We use the latest technologies and innovative solutions to provide an outstanding and effective user experience.',
+    'our_achievements': 'Our Achievements',
+    'job_seekers_count': 'job seekers',
+    'available_jobs_count': 'available jobs',
+    'partner_companies': 'partner companies',
+    'user_satisfaction': 'user satisfaction rate',
+    'join_us_today': 'Join Us Today',
+    'join_us_desc': 'Start your career journey with us and discover unlimited opportunities in the job market',
+    'register_job_seeker': 'Register as Job Seeker',
+    'register_employer_btn': 'Register as Employer',
+    'best_platform': 'The best platform for finding jobs and talents in the Arab world',
+    
+    // Companies
+    'browse_companies': 'Browse Companies',
+    'search_company_field': 'Search for company or field...',
+    'all_locations_filter': 'All Locations',
+    'all_fields_filter': 'All Fields',
+    'digital_marketing': 'Digital Marketing',
+    'found_companies': 'Found {count} companies',
+    'rating': 'Rating',
+    'company_size': 'Company Size',
+    'company_name': 'Company Name',
+    'employees': 'employees',
+    'founded_in': 'Founded in',
+    'available_jobs_at': 'available jobs',
+    'view_company': 'View Company',
+    'load_more_companies': 'Load More Companies'
   }
 };

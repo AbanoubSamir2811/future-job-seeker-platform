@@ -7,28 +7,34 @@ import { MapPin, Clock, DollarSign, Building, Trash2 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { useSavedJobs } from "@/hooks/useSavedJobs";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SavedJobs = () => {
   const { savedJobs, removeSavedJob } = useSavedJobs();
   const { toast } = useToast();
+  const { t, language } = useLanguage();
 
   const handleRemoveSavedJob = (jobId: number, jobTitle: string) => {
     removeSavedJob(jobId);
     toast({
-      title: "تم حذف الوظيفة",
-      description: `تم حذف "${jobTitle}" من الوظائف المحفوظة`,
+      title: language === 'ar' ? "تم حذف الوظيفة" : "Job Removed",
+      description: language === 'ar' ? 
+        `تم حذف "${jobTitle}" من الوظائف المحفوظة` :
+        `"${jobTitle}" has been removed from saved jobs`,
     });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">الوظائف المحفوظة</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('saved_jobs')}</h1>
           <p className="text-gray-600">
-            عدد الوظائف المحفوظة: {savedJobs.length}
+            {language === 'ar' ? 
+              `عدد الوظائف المحفوظة: ${savedJobs.length}` :
+              `Saved jobs count: ${savedJobs.length}`}
           </p>
         </div>
 
@@ -38,13 +44,13 @@ const SavedJobs = () => {
               <Building className="w-12 h-12 text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              لا توجد وظائف محفوظة
+              {t('no_saved_jobs')}
             </h3>
             <p className="text-gray-600 mb-6">
-              ابحث عن الوظائف واحفظ المناسبة منها لمراجعتها لاحقاً
+              {t('no_saved_jobs_desc')}
             </p>
             <Button asChild>
-              <Link to="/jobs">تصفح الوظائف</Link>
+              <Link to="/jobs">{t('browse_jobs')}</Link>
             </Button>
           </div>
         ) : (
@@ -64,7 +70,7 @@ const SavedJobs = () => {
                     </div>
                     <div className="flex gap-2">
                       <Button asChild>
-                        <Link to={`/job/${job.id}`}>عرض التفاصيل</Link>
+                        <Link to={`/job/${job.id}`}>{t('view_details')}</Link>
                       </Button>
                       <Button
                         variant="outline"
@@ -80,19 +86,19 @@ const SavedJobs = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                     <div className="flex items-center text-gray-600">
-                      <MapPin className="w-4 h-4 ml-1" />
+                      <MapPin className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                       {job.location}
                     </div>
                     <div className="flex items-center text-gray-600">
-                      <DollarSign className="w-4 h-4 ml-1" />
+                      <DollarSign className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                       {job.salary}
                     </div>
                     <div className="flex items-center text-gray-600">
-                      <Clock className="w-4 h-4 ml-1" />
+                      <Clock className={`w-4 h-4 ${language === 'ar' ? 'ml-1' : 'mr-1'}`} />
                       {job.type}
                     </div>
                     <div className="text-gray-500">
-                      محفوظة في: {job.savedAt}
+                      {language === 'ar' ? 'محفوظة في:' : 'Saved on:'} {job.savedAt}
                     </div>
                   </div>
                 </CardContent>

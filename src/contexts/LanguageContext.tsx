@@ -163,6 +163,9 @@ const translations = {
     'no_experience_added': 'لم تتم إضافة أي خبرات عملية بعد',
     'click_add_experience': 'اضغط على "إضافة خبرة" لبدء إضافة خبراتك',
     'save_profile': 'حفظ الملف الشخصي',
+    'not_specified': 'غير محدد',
+    'no_description': 'لا يوجد وصف',
+    'no_skills_listed': 'لا توجد مهارات مذكورة',
     
     // Footer
     'quick_links': 'روابط سريعة',
@@ -421,6 +424,9 @@ const translations = {
     'no_experience_added': 'No work experience added yet',
     'click_add_experience': 'Click "Add Experience" to start adding your experience',
     'save_profile': 'Save Profile',
+    'not_specified': 'Not specified',
+    'no_description': 'No description available',
+    'no_skills_listed': 'No skills listed',
     
     // Footer
     'quick_links': 'Quick Links',

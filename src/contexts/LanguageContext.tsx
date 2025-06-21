@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'ar' | 'en';
@@ -231,7 +232,6 @@ const translations = {
     'found_companies': 'تم العثور على {count} شركة',
     'rating': 'التقييم',
     'company_size': 'حجم الشركة',
-    'company_name': 'اسم الشركة',
     'employees': 'موظف',
     'founded_in': 'تأسست في',
     'available_jobs_at': 'وظيفة متاحة',
@@ -284,7 +284,6 @@ const translations = {
     'salary': 'الراتب',
     'post_date': 'تاريخ النشر',
     'about_company': 'عن الشركة',
-    'tech_company': 'شركة تقنية',
     'view_company_profile': 'عرض ملف الشركة',
     
     // Company Details

@@ -10,6 +10,10 @@ interface SavedJob {
   type: string;
   posted: string;
   savedAt: string;
+  featured?: boolean;
+  experience: string;
+  description: string;
+  skills: string[];
 }
 
 export const useSavedJobs = () => {
@@ -31,7 +35,11 @@ export const useSavedJobs = () => {
       salary: job.salary,
       type: job.type,
       posted: job.posted,
-      savedAt: new Date().toLocaleDateString('ar-SA')
+      savedAt: new Date().toLocaleDateString('ar-SA'),
+      featured: job.featured || false,
+      experience: job.experience || '',
+      description: job.description || '',
+      skills: job.skills || []
     };
 
     const updatedJobs = [...savedJobs, savedJob];

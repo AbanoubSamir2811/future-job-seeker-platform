@@ -3,8 +3,10 @@ import { Navbar } from "@/components/Navbar";
 import { JobsSearchBar } from "@/components/JobsSearchBar";
 import { JobsList } from "@/components/JobsList";
 import { useJobsData } from "@/hooks/useJobsData";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Jobs = () => {
+  const { language } = useLanguage();
   const {
     searchQuery,
     setSearchQuery,
@@ -16,7 +18,7 @@ const Jobs = () => {
   } = useJobsData();
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">

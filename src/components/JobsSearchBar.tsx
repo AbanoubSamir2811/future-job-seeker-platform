@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface JobsSearchBarProps {
   searchQuery: string;
@@ -21,19 +22,21 @@ export const JobsSearchBar = ({
   categoryFilter,
   setCategoryFilter
 }: JobsSearchBarProps) => {
+  const { t, language } = useLanguage();
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">البحث عن الوظائف</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">{t('search_jobs')}</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="md:col-span-2">
           <div className="relative">
-            <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+            <Search className={`absolute ${language === 'ar' ? 'right-3' : 'left-3'} top-3 h-4 w-4 text-gray-400`} />
             <Input
-              placeholder="ابحث عن وظيفة أو شركة..."
+              placeholder={t('search_company')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10"
+              className={language === 'ar' ? 'pr-10' : 'pl-10'}
             />
           </div>
         </div>
@@ -41,14 +44,14 @@ export const JobsSearchBar = ({
         <div>
           <Select onValueChange={setLocationFilter}>
             <SelectTrigger>
-              <SelectValue placeholder="الموقع" />
+              <SelectValue placeholder={t('location')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">جميع المواقع</SelectItem>
-              <SelectItem value="الرياض">الرياض</SelectItem>
-              <SelectItem value="جدة">جدة</SelectItem>
-              <SelectItem value="الدمام">الدمام</SelectItem>
-              <SelectItem value="مكة">مكة</SelectItem>
+              <SelectItem value="all">{t('all_locations')}</SelectItem>
+              <SelectItem value={t('riyadh')}>{t('riyadh')}</SelectItem>
+              <SelectItem value={t('jeddah')}>{t('jeddah')}</SelectItem>
+              <SelectItem value={t('dammam')}>{t('dammam')}</SelectItem>
+              <SelectItem value={t('mecca')}>{t('mecca')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -56,14 +59,14 @@ export const JobsSearchBar = ({
         <div>
           <Select onValueChange={setCategoryFilter}>
             <SelectTrigger>
-              <SelectValue placeholder="المجال" />
+              <SelectValue placeholder={t('all_fields')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">جميع المجالات</SelectItem>
-              <SelectItem value="tech">التكنولوجيا</SelectItem>
-              <SelectItem value="marketing">التسويق</SelectItem>
-              <SelectItem value="finance">المالية</SelectItem>
-              <SelectItem value="hr">الموارد البشرية</SelectItem>
+              <SelectItem value="all">{t('all_fields')}</SelectItem>
+              <SelectItem value="tech">{t('technology')}</SelectItem>
+              <SelectItem value="marketing">{t('marketing')}</SelectItem>
+              <SelectItem value="finance">{t('finance')}</SelectItem>
+              <SelectItem value="hr">{t('hr')}</SelectItem>
             </SelectContent>
           </Select>
         </div>

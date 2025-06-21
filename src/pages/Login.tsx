@@ -8,9 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { toast } from "sonner";
 import { LogIn } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -28,7 +30,7 @@ const Login = () => {
     
     // Simulate login - in real app, check credentials against backend
     if (formData.email && formData.password) {
-      toast.success("تم تسجيل الدخول بنجاح!");
+      toast.success(language === 'ar' ? "تم تسجيل الدخول بنجاح!" : "Login successful!");
       
       // Route based on email domain or user type (simplified)
       if (formData.email.includes("company") || formData.email.includes("corp")) {
@@ -37,12 +39,12 @@ const Login = () => {
         navigate("/candidate-dashboard");
       }
     } else {
-      toast.error("يرجى إدخال البريد الإلكتروني وكلمة المرور");
+      toast.error(language === 'ar' ? "يرجى إدخال البريد الإلكتروني وكلمة المرور" : "Please enter email and password");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50" dir="rtl">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-green-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="flex items-center justify-center py-12 px-4">
@@ -51,16 +53,18 @@ const Login = () => {
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <LogIn className="w-8 h-8 text-blue-600" />
             </div>
-            <CardTitle className="text-2xl">تسجيل الدخول</CardTitle>
+            <CardTitle className="text-2xl">{t('login')}</CardTitle>
             <CardDescription>
-              أدخل بياناتك للوصول إلى حسابك
+              {language === 'ar' ? 
+                "أدخل بياناتك للوصول إلى حسابك" :
+                "Enter your credentials to access your account"}
             </CardDescription>
           </CardHeader>
           
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="email">البريد الإلكتروني</Label>
+                <Label htmlFor="email">{t('email')}</Label>
                 <Input
                   id="email"
                   name="email"
@@ -73,7 +77,9 @@ const Login = () => {
               </div>
               
               <div>
-                <Label htmlFor="password">كلمة المرور</Label>
+                <Label htmlFor="password">
+                  {language === 'ar' ? "كلمة المرور" : "Password"}
+                </Label>
                 <Input
                   id="password"
                   name="password"
@@ -81,24 +87,24 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  placeholder="أدخل كلمة المرور"
+                  placeholder={language === 'ar' ? "أدخل كلمة المرور" : "Enter password"}
                 />
               </div>
               
-              <div className="text-left">
+              <div className={language === 'ar' ? 'text-right' : 'text-left'}>
                 <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
-                  نسيت كلمة المرور؟
+                  {language === 'ar' ? "نسيت كلمة المرور؟" : "Forgot password?"}
                 </Link>
               </div>
               
               <Button type="submit" className="w-full">
-                تسجيل الدخول
+                {t('login')}
               </Button>
               
               <div className="text-center text-sm text-gray-600">
-                ليس لديك حساب؟{" "}
+                {language === 'ar' ? "ليس لديك حساب؟" : "Don't have an account?"}{" "}
                 <Link to="/register-candidate" className="text-blue-600 hover:underline">
-                  إنشاء حساب جديد
+                  {language === 'ar' ? "إنشاء حساب جديد" : "Create new account"}
                 </Link>
               </div>
             </form>

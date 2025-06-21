@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { JobCard } from "./JobCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Job {
   id: number;
@@ -23,22 +24,24 @@ interface JobsListProps {
 }
 
 export const JobsList = ({ jobs }: JobsListProps) => {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* Results Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">
-          تم العثور على {jobs.length} وظيفة
+          {t('found_jobs').replace('{count}', jobs.length.toString())}
         </h2>
         <Select>
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="ترتيب حسب" />
+            <SelectValue placeholder={t('sort_by')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="latest">الأحدث</SelectItem>
-            <SelectItem value="salary-high">الراتب (الأعلى أولاً)</SelectItem>
-            <SelectItem value="salary-low">الراتب (الأقل أولاً)</SelectItem>
-            <SelectItem value="company">اسم الشركة</SelectItem>
+            <SelectItem value="latest">{t('latest')}</SelectItem>
+            <SelectItem value="salary-high">{t('salary_high')}</SelectItem>
+            <SelectItem value="salary-low">{t('salary_low')}</SelectItem>
+            <SelectItem value="company">{t('company')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -53,7 +56,7 @@ export const JobsList = ({ jobs }: JobsListProps) => {
       {/* Load More */}
       <div className="text-center mt-8">
         <Button variant="outline" size="lg">
-          تحميل المزيد من الوظائف
+          {t('load_more')}
         </Button>
       </div>
     </>

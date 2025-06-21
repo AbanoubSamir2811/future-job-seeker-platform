@@ -8,9 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { toast } from "sonner";
 import { User } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const RegisterCandidate = () => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -30,24 +32,26 @@ const RegisterCandidate = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      toast.error("كلمات المرور غير متطابقة");
+      toast.error(language === 'ar' ? "كلمات المرور غير متطابقة" : "Passwords do not match");
       return;
     }
 
     if (formData.password.length < 8) {
-      toast.error("كلمة المرور يجب أن تكون 8 أحرف على الأقل");
+      toast.error(language === 'ar' ? "كلمة المرور يجب أن تكون 8 أحرف على الأقل" : "Password must be at least 8 characters");
       return;
     }
 
     // Simulate registration
-    toast.success("تم إنشاء الحساب بنجاح! تحقق من بريدك الإلكتروني للتفعيل");
+    toast.success(language === 'ar' ? 
+      "تم إنشاء الحساب بنجاح! تحقق من بريدك الإلكتروني للتفعيل" :
+      "Account created successfully! Check your email for verification");
     setTimeout(() => {
       navigate("/candidate-dashboard");
     }, 2000);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50" dir="rtl">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-green-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="flex items-center justify-center py-12 px-4">
@@ -56,16 +60,22 @@ const RegisterCandidate = () => {
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <User className="w-8 h-8 text-blue-600" />
             </div>
-            <CardTitle className="text-2xl">إنشاء حساب باحث عن عمل</CardTitle>
+            <CardTitle className="text-2xl">
+              {language === 'ar' ? "إنشاء حساب باحث عن عمل" : "Create Job Seeker Account"}
+            </CardTitle>
             <CardDescription>
-              أدخل بياناتك لإنشاء حساب جديد والبدء في البحث عن الوظائف
+              {language === 'ar' ? 
+                "أدخل بياناتك لإنشاء حساب جديد والبدء في البحث عن الوظائف" :
+                "Enter your details to create a new account and start job searching"}
             </CardDescription>
           </CardHeader>
           
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="fullName">الاسم الكامل *</Label>
+                <Label htmlFor="fullName">
+                  {language === 'ar' ? "الاسم الكامل *" : "Full Name *"}
+                </Label>
                 <Input
                   id="fullName"
                   name="fullName"
@@ -73,12 +83,14 @@ const RegisterCandidate = () => {
                   required
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  placeholder="أدخل اسمك الكامل"
+                  placeholder={language === 'ar' ? "أدخل اسمك الكامل" : "Enter your full name"}
                 />
               </div>
               
               <div>
-                <Label htmlFor="email">البريد الإلكتروني *</Label>
+                <Label htmlFor="email">
+                  {language === 'ar' ? "البريد الإلكتروني *" : "Email *"}
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -91,7 +103,9 @@ const RegisterCandidate = () => {
               </div>
               
               <div>
-                <Label htmlFor="phone">رقم الهاتف</Label>
+                <Label htmlFor="phone">
+                  {language === 'ar' ? "رقم الهاتف" : "Phone Number"}
+                </Label>
                 <Input
                   id="phone"
                   name="phone"
@@ -103,7 +117,9 @@ const RegisterCandidate = () => {
               </div>
               
               <div>
-                <Label htmlFor="password">كلمة المرور *</Label>
+                <Label htmlFor="password">
+                  {language === 'ar' ? "كلمة المرور *" : "Password *"}
+                </Label>
                 <Input
                   id="password"
                   name="password"
@@ -111,12 +127,14 @@ const RegisterCandidate = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  placeholder="8 أحرف على الأقل"
+                  placeholder={language === 'ar' ? "8 أحرف على الأقل" : "At least 8 characters"}
                 />
               </div>
               
               <div>
-                <Label htmlFor="confirmPassword">تأكيد كلمة المرور *</Label>
+                <Label htmlFor="confirmPassword">
+                  {language === 'ar' ? "تأكيد كلمة المرور *" : "Confirm Password *"}
+                </Label>
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
@@ -124,25 +142,25 @@ const RegisterCandidate = () => {
                   required
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  placeholder="أعد كتابة كلمة المرور"
+                  placeholder={language === 'ar' ? "أعد كتابة كلمة المرور" : "Re-enter password"}
                 />
               </div>
               
               <Button type="submit" className="w-full">
-                إنشاء الحساب
+                {language === 'ar' ? "إنشاء الحساب" : "Create Account"}
               </Button>
               
               <div className="text-center text-sm text-gray-600">
-                لديك حساب بالفعل؟{" "}
+                {language === 'ar' ? "لديك حساب بالفعل؟" : "Already have an account?"}{" "}
                 <Link to="/login" className="text-blue-600 hover:underline">
-                  تسجيل الدخول
+                  {t('login')}
                 </Link>
               </div>
               
               <div className="text-center text-sm text-gray-600">
-                تريد إنشاء حساب شركة؟{" "}
+                {language === 'ar' ? "تريد إنشاء حساب شركة؟" : "Want to create a company account?"}{" "}
                 <Link to="/register-employer" className="text-green-600 hover:underline">
-                  سجل كصاحب عمل
+                  {language === 'ar' ? "سجل كصاحب عمل" : "Register as Employer"}
                 </Link>
               </div>
             </form>

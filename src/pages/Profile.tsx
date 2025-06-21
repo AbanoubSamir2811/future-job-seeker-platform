@@ -10,11 +10,13 @@ import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/Navbar";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Camera, Plus, X, User, MapPin, Phone, Mail } from "lucide-react";
 
 const Profile = () => {
   const { profile, updateSection } = useProfile();
   const { toast } = useToast();
+  const { t, language } = useLanguage();
   const [newSkill, setNewSkill] = useState("");
   const [newLanguage, setNewLanguage] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -98,19 +100,19 @@ const Profile = () => {
 
   const handleSave = () => {
     toast({
-      title: "تم حفظ الملف الشخصي",
-      description: "تم حفظ بياناتك بنجاح",
+      title: t('profile_updated'),
+      description: t('profile_saved_success'),
     });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className={`min-h-screen bg-gray-50 ${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">الملف الشخصي</h1>
-          <p className="text-gray-600">قم بتحديث بياناتك الشخصية والمهنية</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('personal_profile')}</h1>
+          <p className="text-gray-600">{t('update_personal_info')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -118,7 +120,7 @@ const Profile = () => {
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
-                <CardTitle>الصورة الشخصية</CardTitle>
+                <CardTitle>{t('profile_image')}</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
                 <div className="relative w-32 h-32 mx-auto mb-4">
@@ -135,7 +137,7 @@ const Profile = () => {
                   )}
                   <label
                     htmlFor="profile-image"
-                    className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full cursor-pointer hover:bg-blue-700"
+                    className={`absolute bottom-0 ${language === 'ar' ? 'left-0' : 'right-0'} bg-blue-600 text-white p-2 rounded-full cursor-pointer hover:bg-blue-700`}
                   >
                     <Camera className="w-4 h-4" />
                   </label>
@@ -147,7 +149,7 @@ const Profile = () => {
                     className="hidden"
                   />
                 </div>
-                <p className="text-sm text-gray-600">اضغط على الكاميرا لتغيير الصورة</p>
+                <p className="text-sm text-gray-600">{t('click_camera_change')}</p>
               </CardContent>
             </Card>
           </div>
@@ -156,22 +158,22 @@ const Profile = () => {
           <div className="lg:col-span-3">
             <Tabs defaultValue="personal" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="personal">البيانات الشخصية</TabsTrigger>
-                <TabsTrigger value="professional">البيانات المهنية</TabsTrigger>
-                <TabsTrigger value="education">التعليم</TabsTrigger>
-                <TabsTrigger value="experience">الخبرات</TabsTrigger>
+                <TabsTrigger value="personal">{t('personal_data')}</TabsTrigger>
+                <TabsTrigger value="professional">{t('professional_data')}</TabsTrigger>
+                <TabsTrigger value="education">{t('education')}</TabsTrigger>
+                <TabsTrigger value="experience">{t('experience')}</TabsTrigger>
               </TabsList>
 
               {/* Personal Information */}
               <TabsContent value="personal">
                 <Card>
                   <CardHeader>
-                    <CardTitle>البيانات الشخصية</CardTitle>
+                    <CardTitle>{t('personal_data')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="fullName">الاسم الكامل</Label>
+                        <Label htmlFor="fullName">{t('full_name')}</Label>
                         <Input
                           id="fullName"
                           value={profile.personalInfo.fullName}
@@ -179,11 +181,11 @@ const Profile = () => {
                             ...profile.personalInfo,
                             fullName: e.target.value
                           })}
-                          placeholder="أدخل اسمك الكامل"
+                          placeholder={t('enter_full_name')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email">البريد الإلكتروني</Label>
+                        <Label htmlFor="email">{t('email')}</Label>
                         <Input
                           id="email"
                           type="email"
@@ -196,7 +198,7 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="phone">رقم الهاتف</Label>
+                        <Label htmlFor="phone">{t('phone')}</Label>
                         <Input
                           id="phone"
                           value={profile.personalInfo.phone}
@@ -208,7 +210,7 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="location">المدينة</Label>
+                        <Label htmlFor="location">{t('city')}</Label>
                         <Input
                           id="location"
                           value={profile.personalInfo.location}
@@ -216,11 +218,11 @@ const Profile = () => {
                             ...profile.personalInfo,
                             location: e.target.value
                           })}
-                          placeholder="الرياض"
+                          placeholder={t('riyadh_city')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="dateOfBirth">تاريخ الميلاد</Label>
+                        <Label htmlFor="dateOfBirth">{t('date_of_birth')}</Label>
                         <Input
                           id="dateOfBirth"
                           type="date"
@@ -232,7 +234,7 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="nationality">الجنسية</Label>
+                        <Label htmlFor="nationality">{t('nationality')}</Label>
                         <Input
                           id="nationality"
                           value={profile.personalInfo.nationality}
@@ -240,7 +242,7 @@ const Profile = () => {
                             ...profile.personalInfo,
                             nationality: e.target.value
                           })}
-                          placeholder="سعودي"
+                          placeholder={t('saudi')}
                         />
                       </div>
                     </div>
@@ -252,12 +254,12 @@ const Profile = () => {
               <TabsContent value="professional">
                 <Card>
                   <CardHeader>
-                    <CardTitle>البيانات المهنية</CardTitle>
+                    <CardTitle>{t('professional_data')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="jobTitle">المسمى الوظيفي</Label>
+                        <Label htmlFor="jobTitle">{t('job_title')}</Label>
                         <Input
                           id="jobTitle"
                           value={profile.professionalInfo.jobTitle}
@@ -265,11 +267,11 @@ const Profile = () => {
                             ...profile.professionalInfo,
                             jobTitle: e.target.value
                           })}
-                          placeholder="مطور ويب"
+                          placeholder={t('web_developer')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="experience">سنوات الخبرة</Label>
+                        <Label htmlFor="experience">{t('years_experience')}</Label>
                         <Input
                           id="experience"
                           value={profile.professionalInfo.experience}
@@ -277,11 +279,11 @@ const Profile = () => {
                             ...profile.professionalInfo,
                             experience: e.target.value
                           })}
-                          placeholder="3 سنوات"
+                          placeholder={t('three_years')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="salary">الراتب المتوقع</Label>
+                        <Label htmlFor="salary">{t('expected_salary')}</Label>
                         <Input
                           id="salary"
                           value={profile.professionalInfo.salary}
@@ -289,11 +291,11 @@ const Profile = () => {
                             ...profile.professionalInfo,
                             salary: e.target.value
                           })}
-                          placeholder="8000 - 12000 ريال"
+                          placeholder={t('salary_range')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="workType">نوع العمل المفضل</Label>
+                        <Label htmlFor="workType">{t('work_type')}</Label>
                         <Input
                           id="workType"
                           value={profile.professionalInfo.workType}
@@ -301,19 +303,19 @@ const Profile = () => {
                             ...profile.professionalInfo,
                             workType: e.target.value
                           })}
-                          placeholder="دوام كامل، عن بعد"
+                          placeholder={t('work_preference')}
                         />
                       </div>
                     </div>
 
                     {/* Skills */}
                     <div>
-                      <Label>المهارات</Label>
+                      <Label>{t('skills')}</Label>
                       <div className="flex gap-2 mb-2">
                         <Input
                           value={newSkill}
                           onChange={(e) => setNewSkill(e.target.value)}
-                          placeholder="أضف مهارة جديدة"
+                          placeholder={t('add_new_skill')}
                           onKeyPress={(e) => e.key === 'Enter' && addSkill()}
                         />
                         <Button onClick={addSkill} size="sm">
@@ -334,12 +336,12 @@ const Profile = () => {
 
                     {/* Languages */}
                     <div>
-                      <Label>اللغات</Label>
+                      <Label>{t('languages')}</Label>
                       <div className="flex gap-2 mb-2">
                         <Input
                           value={newLanguage}
                           onChange={(e) => setNewLanguage(e.target.value)}
-                          placeholder="أضف لغة جديدة"
+                          placeholder={t('add_new_language')}
                           onKeyPress={(e) => e.key === 'Enter' && addLanguage()}
                         />
                         <Button onClick={addLanguage} size="sm">
@@ -360,12 +362,12 @@ const Profile = () => {
 
                     {/* Summary */}
                     <div>
-                      <Label htmlFor="summary">نبذة شخصية</Label>
+                      <Label htmlFor="summary">{t('personal_summary')}</Label>
                       <Textarea
                         id="summary"
                         value={profile.summary}
                         onChange={(e) => updateSection('summary', e.target.value)}
-                        placeholder="اكتب نبذة مختصرة عن خبراتك وأهدافك المهنية"
+                        placeholder={t('write_summary')}
                         rows={4}
                       />
                     </div>
@@ -377,12 +379,12 @@ const Profile = () => {
               <TabsContent value="education">
                 <Card>
                   <CardHeader>
-                    <CardTitle>التعليم</CardTitle>
+                    <CardTitle>{t('education')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="degree">الدرجة العلمية</Label>
+                        <Label htmlFor="degree">{t('degree')}</Label>
                         <Input
                           id="degree"
                           value={profile.education.degree}
@@ -390,11 +392,11 @@ const Profile = () => {
                             ...profile.education,
                             degree: e.target.value
                           })}
-                          placeholder="بكالوريوس هندسة الحاسوب"
+                          placeholder={t('bachelor_computer')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="university">الجامعة</Label>
+                        <Label htmlFor="university">{t('university')}</Label>
                         <Input
                           id="university"
                           value={profile.education.university}
@@ -402,11 +404,11 @@ const Profile = () => {
                             ...profile.education,
                             university: e.target.value
                           })}
-                          placeholder="جامعة الملك سعود"
+                          placeholder={t('king_saud_university')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="graduationYear">سنة التخرج</Label>
+                        <Label htmlFor="graduationYear">{t('graduation_year')}</Label>
                         <Input
                           id="graduationYear"
                           value={profile.education.graduationYear}
@@ -418,7 +420,7 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="gpa">المعدل التراكمي</Label>
+                        <Label htmlFor="gpa">{t('gpa')}</Label>
                         <Input
                           id="gpa"
                           value={profile.education.gpa}
@@ -426,7 +428,7 @@ const Profile = () => {
                             ...profile.education,
                             gpa: e.target.value
                           })}
-                          placeholder="3.8 / 4.0"
+                          placeholder={t('gpa_value')}
                         />
                       </div>
                     </div>
@@ -439,10 +441,10 @@ const Profile = () => {
                 <Card>
                   <CardHeader>
                     <div className="flex justify-between items-center">
-                      <CardTitle>الخبرات العملية</CardTitle>
+                      <CardTitle>{t('work_experience')}</CardTitle>
                       <Button onClick={addExperience} size="sm">
-                        <Plus className="w-4 h-4 ml-1" />
-                        إضافة خبرة
+                        <Plus className={`w-4 h-4 ${language === 'ar' ? 'mr-1' : 'ml-1'}`} />
+                        {t('add_experience')}
                       </Button>
                     </div>
                   </CardHeader>
@@ -450,7 +452,7 @@ const Profile = () => {
                     {profile.experience.map((exp, index) => (
                       <div key={index} className="border rounded-lg p-4 space-y-4">
                         <div className="flex justify-between items-start">
-                          <h4 className="font-semibold">خبرة #{index + 1}</h4>
+                          <h4 className="font-semibold">{t('experience_number').replace('{index}', (index + 1).toString())}</h4>
                           <Button
                             variant="outline"
                             size="sm"
@@ -461,23 +463,23 @@ const Profile = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <Label>اسم الشركة</Label>
+                            <Label>{t('company_name')}</Label>
                             <Input
                               value={exp.company}
                               onChange={(e) => updateExperience(index, 'company', e.target.value)}
-                              placeholder="شركة التقنية"
+                              placeholder={t('tech_company')}
                             />
                           </div>
                           <div>
-                            <Label>المنصب</Label>
+                            <Label>{t('job_position')}</Label>
                             <Input
                               value={exp.position}
                               onChange={(e) => updateExperience(index, 'position', e.target.value)}
-                              placeholder="مطور ويب"
+                              placeholder={t('web_developer')}
                             />
                           </div>
                           <div>
-                            <Label>تاريخ البداية</Label>
+                            <Label>{t('start_date_label')}</Label>
                             <Input
                               type="date"
                               value={exp.startDate}
@@ -485,7 +487,7 @@ const Profile = () => {
                             />
                           </div>
                           <div>
-                            <Label>تاريخ النهاية</Label>
+                            <Label>{t('end_date_label')}</Label>
                             <Input
                               type="date"
                               value={exp.endDate}
@@ -494,11 +496,11 @@ const Profile = () => {
                           </div>
                         </div>
                         <div>
-                          <Label>وصف المهام</Label>
+                          <Label>{t('tasks_description')}</Label>
                           <Textarea
                             value={exp.description}
                             onChange={(e) => updateExperience(index, 'description', e.target.value)}
-                            placeholder="اكتب وصفاً للمهام التي قمت بها في هذا المنصب"
+                            placeholder={t('tasks_placeholder')}
                             rows={3}
                           />
                         </div>
@@ -506,8 +508,8 @@ const Profile = () => {
                     ))}
                     {profile.experience.length === 0 && (
                       <div className="text-center py-8 text-gray-500">
-                        <p>لم تتم إضافة أي خبرات عملية بعد</p>
-                        <p className="text-sm">اضغط على "إضافة خبرة" لبدء إضافة خبراتك</p>
+                        <p>{t('no_experience_added')}</p>
+                        <p className="text-sm">{t('click_add_experience')}</p>
                       </div>
                     )}
                   </CardContent>
@@ -520,7 +522,7 @@ const Profile = () => {
         {/* Save Button */}
         <div className="mt-8 text-center">
           <Button onClick={handleSave} size="lg">
-            حفظ الملف الشخصي
+            {t('save_profile')}
           </Button>
         </div>
       </div>

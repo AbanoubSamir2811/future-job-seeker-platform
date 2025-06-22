@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, DollarSign, Building } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Job {
   id: number;
@@ -25,6 +26,8 @@ interface JobCardProps {
 }
 
 export const JobCard = ({ job }: JobCardProps) => {
+  const { t } = useLanguage();
+
   return (
     <Card className={`hover:shadow-lg transition-shadow ${job.featured ? 'border-blue-200 bg-blue-50/30' : ''}`}>
       <CardHeader>
@@ -33,7 +36,7 @@ export const JobCard = ({ job }: JobCardProps) => {
             <div className="flex items-center gap-2 mb-2">
               <CardTitle className="text-xl">{job.title}</CardTitle>
               {job.featured && (
-                <Badge className="bg-blue-100 text-blue-800">مميزة</Badge>
+                <Badge className="bg-blue-100 text-blue-800">{t('featured')}</Badge>
               )}
             </div>
             <div className="flex items-center gap-2 mb-2">
@@ -47,7 +50,7 @@ export const JobCard = ({ job }: JobCardProps) => {
             </div>
           </div>
           <Button asChild>
-            <Link to={`/job/${job.id}`}>عرض التفاصيل</Link>
+            <Link to={`/job/${job.id}`}>{t('view_details')}</Link>
           </Button>
         </div>
       </CardHeader>
@@ -76,11 +79,15 @@ export const JobCard = ({ job }: JobCardProps) => {
         </p>
         
         <div className="flex flex-wrap gap-2">
-          {job.skills.map((skill, index) => (
-            <Badge key={index} variant="secondary">
-              {skill}
-            </Badge>
-          ))}
+          {job.skills && job.skills.length > 0 ? (
+            job.skills.map((skill, index) => (
+              <Badge key={index} variant="secondary">
+                {skill}
+              </Badge>
+            ))
+          ) : (
+            <span className="text-gray-500 text-sm">{t('no_skills_listed')}</span>
+          )}
         </div>
       </CardContent>
     </Card>

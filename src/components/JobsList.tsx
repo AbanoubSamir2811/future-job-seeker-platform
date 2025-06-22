@@ -24,10 +24,10 @@ interface JobsListProps {
 }
 
 export const JobsList = ({ jobs }: JobsListProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
-    <>
+    <div className={`${language === 'ar' ? 'font-arabic' : 'font-english'}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Results Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">
@@ -59,6 +59,6 @@ export const JobsList = ({ jobs }: JobsListProps) => {
           {t('load_more')}
         </Button>
       </div>
-    </>
+    </div>
   );
 };
